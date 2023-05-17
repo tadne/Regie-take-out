@@ -1,11 +1,15 @@
 package com.itheima.common;
 
 import lombok.Data;
+
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 @Data
-public class R<T> {
+//Serializable序列化接口，在缓存的时候有它才能处理R类型的返回值
+public class R<T> implements Serializable
+{
 
     private Integer code; //编码：1成功，0和其它数字为失败
 

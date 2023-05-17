@@ -13,6 +13,8 @@ import com.itheima.service.SetmealService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +36,8 @@ public class SetmealController
 
     @PostMapping
     @Transactional
+    //删除所有缓存数据
+    @CacheEvict(value="setmealCache",allEntries = true)
     public R<String> insert(@RequestBody SetmealDto setmealDto){
         //先插入setmeal数据
         setmealService.save(setmealDto);
@@ -86,6 +90,7 @@ public class SetmealController
 
 
     @DeleteMapping
+    @CacheEvict(value="setmealCache",allEntries = true)
     public R<String> deleteByIds(@RequestParam List<Long> ids){
         setmealService.removeWithDish(ids);
         return R.success("删除成功");
@@ -130,7 +135,10 @@ public class SetmealController
         return R.success("修改成功");
     }
 
+
     @GetMapping("/list")
+    //缓存注解，将方法返回值放入缓存中，并且下次调用就先查缓存再调用方法
+    @Cacheable(value="setmealCache",key="#setmeal.categoryId+'_'+#setmeal.status")
     public R<List<Setmeal>> list( Setmeal setmeal){
         LambdaQueryWrapper<Setmeal> lqw=new LambdaQueryWrapper<>();
         lqw.eq(setmeal.getCategoryId()!=null,Setmeal::getCategoryId,setmeal.getCategoryId());

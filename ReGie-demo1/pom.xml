@@ -97,6 +97,23 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
+        <!--springCache-->
+        <!--
+            底层还是redis等缓存数据库，但是cache可以整合这些，有一些注解开发的简化功能
+            @EnableCaching 开启缓存注解功能
+            @Cacheable     查看缓存中是否有数据，如果有，返回缓存数据，没有则将返回值放入缓存
+            @CachePut      将方法的返回值放到缓存中
+            @CacheEvict    将一条或多条数据从缓存中删除
+
+            在方法上的注解可以用 # 动态获得方法返回值
+            value：  缓存的名称 ，缓存名称下有多个key
+            key：    缓存的key
+            unless： 给缓存设置条件，满足条件就不缓存
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
 
 
     </dependencies>
