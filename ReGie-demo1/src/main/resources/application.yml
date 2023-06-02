@@ -1,6 +1,13 @@
 server:
   port: 8080
 spring:
+  redis:
+    password: iPad2021
+  cache:
+    redis:
+      time-to-live: 1800000
+  main:
+    allow-bean-definition-overriding: true
   application:
     # 应用的名称,可选
     name: reggie_take_out
