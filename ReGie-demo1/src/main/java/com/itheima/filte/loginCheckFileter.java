@@ -4,6 +4,9 @@ package com.itheima.filte;
 import com.alibaba.fastjson.JSON;
 import com.itheima.common.BaseContext;
 import com.itheima.common.R;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.AntPathMatcher;
 
@@ -12,6 +15,9 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 //检查用户是否登录
 @Slf4j
@@ -59,6 +65,15 @@ public class loginCheckFileter implements Filter
             Long userId = (Long) request.getSession().getAttribute("employee");
             BaseContext.setCurrentId(userId);
 
+
+            //获取令牌，解析令牌
+            String jwt = request.getHeader("token");
+            System.out.println(jwt);
+            System.out.println("-----------------");
+            /*Jwts.parser()//解析
+                    .setSigningKey("itheima")
+                    .parseClaimsJws(jwt)
+                    .getBody();*/
             filterChain.doFilter(request,response);//放行
             return;
         }
@@ -71,6 +86,13 @@ public class loginCheckFileter implements Filter
             //设置线程的局部变量存储id
             Long employeeId = (Long) request.getSession().getAttribute("user");
             BaseContext.setCurrentId(employeeId);
+
+            //获取令牌，解析令牌
+            /*String jwt = request.getHeader("token");
+            Jwts.parser()//解析
+                    .setSigningKey("itheima")
+                    .parseClaimsJws(jwt)
+                    .getBody();*/
 
             filterChain.doFilter(request,response);//放行
             return;

@@ -102,6 +102,7 @@
               let res = await loginApi(this.loginForm)
               if (String(res.code) === '1') {
                 localStorage.setItem('userInfo',JSON.stringify(res.data))
+                localStorage.setItem('token',res.token)
                 window.location.href= '/backend/index.html'
               } else {
                 this.$message.error(res.msg)

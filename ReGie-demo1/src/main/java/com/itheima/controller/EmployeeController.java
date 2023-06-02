@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itheima.common.R;
 import com.itheima.pojo.Employee;
 import com.itheima.service.EmployeeService;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 
 
 @Slf4j
@@ -34,15 +37,15 @@ public class EmployeeController
         LambdaQueryWrapper<Employee> lqw=new LambdaQueryWrapper<>();
         lqw.eq(Employee::getUsername,employee.getUsername());//等值查询,即条件查询.第一个参数为数据库的,第二个参数为页面的
         Employee employee1 = employeeService.getOne(lqw);
-        if (employee1==null){
+      if (employee1==null){
             return R.error("用户名错误");
         }
-        if(!employee1.getPassword().equals(password)){
-            return R.error("密码错误");
-        }
+
         if(employee1.getStatus()!=1){
             return R.error("当前账号已经被禁用");
         }
+
+
         //登录成功,将员工 id 存入 Session 并返回登录成功结果
         request.getSession().setAttribute("employee",employee1.getId());
 

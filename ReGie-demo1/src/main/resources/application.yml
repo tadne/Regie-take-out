@@ -1,13 +1,6 @@
 server:
   port: 8080
 spring:
-  redis:
-    password: iPad2021
-  cache:
-    redis:
-      time-to-live: 1800000
-  main:
-    allow-bean-definition-overriding: true
   application:
     # 应用的名称,可选
     name: reggie_take_out
@@ -17,14 +10,25 @@ spring:
       url: jdbc:mysql://localhost:3306/regie?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
       username: root
       password: iPad2021
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+    jedis:
+      pool:
+        max-active: 8 #最大连接数
+        max-wait: 1ms #最大阻塞等待时间
+        max-idle: 4 #最大空闲连接
+        min-idle: 0 #最小空闲连接
+
 mybatis-plus:
   configuration:
-    #在映射实体或者属性时，将数据库中表名和字段名中的下划线去掉，按照驼峰命名法映射
+    #在映射实体或者属性时，去掉数据库中表名和字段名中下划线并按驼峰命名映射
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   global-config:
     db-config:
-      id-type: ASSIGN_ID
+      id-type: ASSIGN_ID  #主键的生成策略，可以在分布式的情况下使用，生成Long类型的数字，可以排序性能高
 
 regie:
-  path: /Users/lutengluteng/Desktop/ReggieTestUpload/
+  path: /Users/lutengluteng/IdeaProjects/Regie-take-out/Regie-take-out/ReGie-demo1/src/main/resources/backend/images/dishAndSetmeals/  #转存的路径，这里用绝对路径

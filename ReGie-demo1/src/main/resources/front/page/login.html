@@ -76,8 +76,9 @@
                         this.loading = false
                         if(res.code === 1){
                             sessionStorage.setItem("userPhone",this.form.phone)
+                            localStorage.setItem('token',res.token)
                             window.requestAnimationFrame(()=>{
-                                window.location.href= '/front/index.html'
+                               window.location.href= '/front/index.html'
                             })                           
                         }else{
                             this.$notify({ type:'warning', message:res.msg});
