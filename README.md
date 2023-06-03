@@ -2,7 +2,6 @@
 
 这是一个基于SpringBoot、Mybatis-plus、SpringCache、Redis、Vue、JS等技术的外卖平台项目，参考了哔哩哔哩里的瑞吉外卖视频教程，适合初学者学习和练习。
 
-![项目主页](https://example.com/home.png)
 
 ## 项目功能
 
