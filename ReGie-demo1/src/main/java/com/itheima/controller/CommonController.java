@@ -31,8 +31,6 @@ public class CommonController
      * 只用在 Controller 方法中
      * 声明 MultipartFile 类型的参数
      * 即可接收上传的文件
-     *
-     *
      * */
     @PostMapping("/upload")
     public R<String> upload(MultipartFile file)
@@ -44,7 +42,7 @@ public class CommonController
         String originalFilename = file.getOriginalFilename();
         //获取文件的后缀
         String suffix = originalFilename.substring(originalFilename.lastIndexOf("."));
-        //为了避免文件名重复,就要使用 uuid 文件名唯一
+        //为了避免文件名重复,使用 uuid 让文件名唯一
         String fileName = UUID.randomUUID().toString()+suffix;
         //判断basePath目录结构是否存在,如果不存在就创建
         File dir=new File(basePath);

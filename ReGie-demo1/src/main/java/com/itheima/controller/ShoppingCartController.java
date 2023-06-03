@@ -30,8 +30,6 @@ public class ShoppingCartController
         Long currentId = BaseContext.getCurrentId();
         shoppingCart.setUserId(currentId);
 
-
-
         //查询当前在购物车中是套餐还是菜品
         LambdaQueryWrapper<ShoppingCart> lqw=new LambdaQueryWrapper<>();
         lqw.eq(ShoppingCart::getUserId,currentId);

@@ -20,6 +20,9 @@ spring:
         max-wait: 1ms #最大阻塞等待时间
         max-idle: 4 #最大空闲连接
         min-idle: 0 #最小空闲连接
+  cache:
+    redis:
+      time-to-live: 3600000 #数据过期时间
 
 mybatis-plus:
   configuration:
@@ -31,4 +34,4 @@ mybatis-plus:
       id-type: ASSIGN_ID  #主键的生成策略，可以在分布式的情况下使用，生成Long类型的数字，可以排序性能高
 
 regie:
-  path: /Users/lutengluteng/IdeaProjects/Regie-take-out/Regie-take-out/ReGie-demo1/src/main/resources/backend/images/dishAndSetmeals/  #转存的路径，这里用绝对路径
+  path: /Users/lutengluteng/Desktop/gi-project/Regie-take-out-master/ReGie-demo1/src/main/resources/backend/images/dishAndSetmeals/  #转存的路径，这里用的绝对路径

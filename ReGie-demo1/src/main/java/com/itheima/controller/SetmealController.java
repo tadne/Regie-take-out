@@ -53,6 +53,8 @@ public class SetmealController
     }
 
     @RequestMapping("/page")
+    //缓存注解，将方法返回值放入缓存中，并且下次调用就先查缓存再调用方法
+    @Cacheable(value="setmealPageCache",key="#page+'_'+#pageSize+'_'+#name")
     public R<Page<SetmealDto>> page(int page,int pageSize,String name){
         //创建 Setmeal 页对象,但是不够业务需求
         Page<Setmeal> pageInfo=new Page<>(page,pageSize);
@@ -90,12 +92,14 @@ public class SetmealController
 
 
     @DeleteMapping
-    @CacheEvict(value="setmealCache",allEntries = true)
+    //删除setmealCache缓存数据
+    @CacheEvict(value={"setmealListCache","setmealPageCache"},allEntries = true)
     public R<String> deleteByIds(@RequestParam List<Long> ids){
         setmealService.removeWithDish(ids);
         return R.success("删除成功");
     }
 
+    //id查套餐
     @GetMapping("/{id}")
     public R<SetmealDto> getById(@PathVariable Long id){
         SetmealDto setmealDto=new SetmealDto();
@@ -111,7 +115,10 @@ public class SetmealController
         return R.success(setmealDto);
     }
 
+    //修改套餐
     @PutMapping
+    //删除setmealCache缓存数据
+    @CacheEvict(value= {"setmealListCache","setmealPageCache"},allEntries = true)
     public R<String> update(@RequestBody SetmealDto setmealDto){
         //修改setmeal 的数据
         setmealService.updateById(setmealDto);
@@ -124,21 +131,20 @@ public class SetmealController
         lqw.eq(SetmealDish::getSetmealId,id);
         setmealDishService.remove(lqw);
 
-
         //添加
         List<SetmealDish> setmealDishes = setmealDto.getSetmealDishes();
         setmealDishes.stream().peek(s-> s.setSetmealId(id)).collect(Collectors.toList());
 
         setmealDishService.saveBatch(setmealDishes);
 
-
         return R.success("修改成功");
     }
 
 
+
     @GetMapping("/list")
     //缓存注解，将方法返回值放入缓存中，并且下次调用就先查缓存再调用方法
-    @Cacheable(value="setmealCache",key="#setmeal.categoryId+'_'+#setmeal.status")
+    @Cacheable(value="setmealListCache",key="#setmeal.categoryId+'_'+#setmeal.status")
     public R<List<Setmeal>> list( Setmeal setmeal){
         LambdaQueryWrapper<Setmeal> lqw=new LambdaQueryWrapper<>();
         lqw.eq(setmeal.getCategoryId()!=null,Setmeal::getCategoryId,setmeal.getCategoryId());

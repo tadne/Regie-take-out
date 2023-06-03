@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Data
-//Serializable序列化接口，在缓存的时候有它才能处理R类型的返回值
 public class R<T> implements Serializable
 {
 
@@ -17,11 +16,21 @@ public class R<T> implements Serializable
 
     private T data; //数据
 
+    private String token;//令牌数据
+
     private Map map = new HashMap(); //动态数据
 
     public static <T> R<T> success(T object) {
         R<T> r = new R<T>();
         r.data = object;
+        r.code = 1;
+        return r;
+    }
+
+    public static <T> R<T> success(T object,String token) {
+        R<T> r = new R<T>();
+        r.data = object;
+        r.token= token;
         r.code = 1;
         return r;
     }
