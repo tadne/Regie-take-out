@@ -21,7 +21,7 @@
 - 前端：Vue、JS、ElementUI、Axios
 - 后端：SpringBoot、Mybatis-plus、SpringCache、Redis
 - 数据库：MySQL
-- 开发工具：IDEA、Navicat、Postman
+- 开发工具：IDEA、Navicat
 
 ## 项目亮点
 
