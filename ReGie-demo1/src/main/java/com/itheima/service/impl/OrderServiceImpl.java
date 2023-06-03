@@ -75,7 +75,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Orders> implement
             return orderDetail;
         }).collect(Collectors.toList());
 
-
+        //将数据放到对象中
         orders.setId(orderId);
         orders.setOrderTime(LocalDateTime.now());
         orders.setCheckoutTime(LocalDateTime.now());
