@@ -62,7 +62,6 @@
 
 ## 项目参考
 
-- [瑞吉外卖视频教程](https://www.bilibili.com/video/BV1GK4y1W7wE)
 - [SpringBoot官方文档](https://spring.io/projects/spring-boot)
 - [Mybatis-plus官方文档](https://baomidou.com/)
 - [SpringCache官方文档](https://docs.spring.io/spring-framework/docs/current/reference/html/integration.html#cache)
